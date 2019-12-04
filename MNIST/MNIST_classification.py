@@ -1,99 +1,54 @@
-def cross_validate(split_size,train_all_feature,train_all_Y,test_feature,test_Y,G_pool,C_pool):
-    results = []
-    train_idx,val_idx = Kfold(len(train_all_feature),split_size)
-    prediction = []
-    
-    #train_all_feature = np.reshape(train_all_feature,(len(train_all_feature),len(train_all_feature[0])))
-    #train_all_Y = np.reshape(train_all_Y,(len(train_all_Y),len(train_all_Y[0])))
-    
-    test_feature = np.reshape(test_feature,(len(test_feature),len(test_feature[0])))
-    
-    
-    for k in range(split_size):
-        train_feature = [train_all_feature[i] for i in train_idx[k]]
-        train_Y = [train_all_Y[i] for i in train_idx[k]]
-        val_feature = [train_all_feature[i] for i in val_idx[k]]
-        val_Y = [train_all_Y[i] for i in val_idx[k]]
-        
-        
-        train_feature = np.reshape(train_feature,(len(train_feature),len(train_feature[0])))
-        val_feature = np.reshape(val_feature,(len(val_feature),len(val_feature[0])))
-        
-    
-        print('inner_loop',k,'start')
-        
-        #epoch_result = []
-        #for epoch in epoch_list:
-        print('start best para search')
-        #run_train(session, train_feature, train_Y, epoch)
-        #epoch_result.append(session.run(accuracy, feed_dict={fea: val_feature, clas: val_Y}))
-        #best_regu,best_W,best_epoch = run_train(train_feature,train_Y,starting_epoch,regularizer_pool,W_pool,val_feature,val_Y,learning_rate)
-        test_score,preds,best_c,best_g = run_train(train_feature,train_Y,G_pool,C_pool,val_feature,val_Y,test_feature,test_Y)
-        #print('test score is', test_score)
-        #print('start best para training/test')
-        #score,preds = run_test(train_all_feature,train_all_Y,test_feature,test_Y,best_regu,best_W,best_epoch,learning_rate)
-        #print('finished best epoch training')
-        print('best c is',best_c)
-        print('best g is',best_g)
-        results.append(test_score)
-        prediction.append(preds)
-        #print(preds)
-        print('this run accuracy is', results[-1])
-        print('inner_loop',k,'ends')
-    #print(prediction)
-    #prediction = np.reshape(9,len(prediction[0]))
-    
-    prediction = np.array(prediction)
-    #print(prediction.shape)
-    pre = []
-    for i in range(prediction.shape[1]):
-        pre.append(Counter(prediction[:,i]).most_common(1)[0][0])
-    test_acc = np.mean(np.equal(pre,test_Y))
-    return (results,test_acc)
+import numpy as np
+import pickle
+from collections import defaultdict
+import scipy.stats.mstats
+from sklearn.svm import SVC
+from scipy import sparse
+from collections import Counter
 
 
 
 
-def run_train(train_feature,train_Y,G_pool,C_pool,val_feature,val_Y,test_feature,test_Y):
-    temp = 0
-    for c in C_pool:
-        for g in G_pool:
-            model = SVC(kernel='rbf',C=c,gamma=g)
-            model.fit(train_feature,train_Y)
-            score = model.score(val_feature,val_Y)
-            if score >temp:
-                temp =score
-                test_score = model.score(test_feature,test_Y)
-                preds = model.predict(test_feature)
-                best_c = c
-                best_g = g
-    return (test_score,preds,best_c,best_g)
-#def write_to_file(index):
-    #with open('shuffle_index_0.txt','w') as file:
-        #for i in index:
-            #file.write(str(i))
-            #file.write('\t')
+training_Y = np.load('MNIST_train_label.npy')
 
 
-def Kfold(length,fold):
-    size = np.arange(length).tolist()
-    train_index = []
-    val_index = []
-    rest = length % fold
-    fold_size = int(length/fold)
-    temp_fold_size = fold_size
-    for i in range(fold):
-        temp_train = []
-        temp_val = []
-        if rest>0:
-            temp_fold_size = fold_size+1
-            rest = rest -1
-            temp_val = size[i*temp_fold_size:+i*temp_fold_size+temp_fold_size]
-            temp_train = size[0:i*temp_fold_size] + size[i*temp_fold_size+temp_fold_size:]
-        else:
-            temp_val = size[(length % fold)*temp_fold_size+(i-(length % fold))*fold_size
-                            :(length % fold)*temp_fold_size+(i-(length % fold))*fold_size+fold_size]
-            temp_train = size[0:(length % fold)*temp_fold_size+(i-(length % fold))*fold_size] + size[(length % fold)*temp_fold_size+(i-(length % fold))*fold_size+fold_size:]
-        train_index.append(temp_train)
-        val_index.append(temp_val)
-    return (train_index,val_index)
+
+test_Y = np.load('MNIST_test_label.npy')
+
+
+
+train_indices = [i for i, x in enumerate(training_Y) if x == 6]
+test_indices = [i for i, x in enumerate(test_Y) if x == 6]
+
+
+
+#training_signal = np.load('/mnt/home/gaofeng2/graph_wavelet/coop_nips/mnist/sphere_feature/j0/combined.npy')
+
+#test_signal = np.load('/mnt/home/gaofeng2/graph_wavelet/coop_nips/mnist/sphere_feature/j0/test_feature0.npy')
+
+
+training_Y_ = [x for i, x in enumerate(training_Y) if i not in train_indices]
+test_Y_ = [x for i, x in enumerate(test_Y) if i not in test_indices]
+
+
+
+#training_feature = np.reshape(training_signal,(len(training_signal),training_signal[0].shape[0]))
+#training_feature = training_feature[:,selected_feature]
+#np.save('train_downsample',training_feature)
+training_feature = np.load('train_downsample.npy')
+training_feature_z = scipy.stats.mstats.zscore(training_feature,0)
+
+
+
+#test_feature = np.reshape(test_signal,(len(test_signal),test_signal[0].shape[0]))
+#test_feature = test_feature[:,selected_feature]
+#np.save('test_downsample',test_feature)
+test_feature = np.load('test_downsample.npy')
+test_feature_z = scipy.stats.mstats.zscore(test_feature,0)
+print('begin cross validation')
+
+result,prediction_acc = cross_validate(5,training_feature_z,training_Y_,test_feature_z,test_Y_,G_pool,C_pool)
+#run_train(session, train_all_feature, train_all_Y)
+print("Cross-validation result: %s" % result)
+print('prediction accuracy',prediction_acc)
+#print("Test accuracy: %f" % session.run(accuracy, feed_dict={fea: test_feature, clas: test_Y}))
