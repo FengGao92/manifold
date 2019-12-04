@@ -16,14 +16,14 @@ feature1 = []
 feature2 = []
 Y = []
 for i in range(100):
-    temp = np.loadtxt('Desktop/manifold paper/faust_features/MeshFeatureFirst'+str(i)+'.txt')
+    temp = np.loadtxt('MeshFeatureFirst'+str(i)+'.txt')
     feature1.append(temp)
     Y.append(read_label_shape(i))
 for i in range(100):
-    temp = np.loadtxt('Desktop/manifold paper/faust_features/MeshFeatureZero'+str(i)+'.txt')
+    temp = np.loadtxt('MeshFeatureZero'+str(i)+'.txt')
     feature0.append(temp)
 for i in range(100):
-    temp = np.loadtxt('Desktop/manifold paper/faust_features/MeshFeature'+str(i)+'.txt')
+    temp = np.loadtxt('MeshFeature'+str(i)+'.txt')
     feature2.append(temp)
     
     
@@ -42,10 +42,6 @@ G_pool = [0.00001,0.0001,0.001]
 C_pool = [25,100,250,500]
 
 
-#this is for human classification
-#index = np.arange(len(Y))
-#np.random.shuffle(index)
-#write_to_file(index)
 n_splits = 5
 #shuffled_feature0,shuffled_Y = shuffled(index,feature_z,Y)
 train_id,test_id = Kfold(len(feature_z0),n_splits)
