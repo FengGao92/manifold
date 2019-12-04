@@ -30,8 +30,8 @@ def create_graph(edge_pool):
     #G.add_weighted_edges_from
     return G
 
-for t in range(0,1):
-    pos,face= read_ply('tr_reg_'+'00'+str(t)+'.ply')
+for t in range(100):
+    pos,face= read_ply('tr_reg_'+'0'+str(t)+'.ply')
 
 
     edge_pool = face_to_edge(face)
@@ -113,10 +113,10 @@ for t in range(0,1):
     L_M = M*(-L)
 
 
-    vals, vecs = sparse.linalg.eigs(L_M,k=100,which='SM')
+    vals, vecs = sparse.linalg.eigs(L_M,k=512,which='SM')
 
 
 
-    np.save('eigenval'+str(t)+'temp.txt',vals.real)
+    np.savetxt('eigenval'+str(t)+'.txt',vals.real)
 
-    np.save('eigenvec'+str(t)+'temp.txt',vecs.real)
+    np.savetxt('eigenvec'+str(t)+'.txt',vecs.real)
