@@ -151,7 +151,7 @@ def read_shot(file):
 def read_label(i):
     return i%10
 
-for i in range(0,100):
+for i in range(100):
     pos,face= read_ply('../../../faust_file/tr_reg_00'+str(i)+'.ply')
     M = generate_area(pos,face)
     eigenval = np.loadtxt('/mnt/research/cedar_team/geometric_scattering/FAUST/eigenval/'+'eigenval'+str(i)+'.txt')
