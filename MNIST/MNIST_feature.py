@@ -150,7 +150,7 @@ for i in range(54082):
     Wf = weighted_wavelet_transform(psi,M,training_signal_[i])
     training_feature.append(generate_feature(psi,Wf,M,Aj,training_signal_[i]))
     
-np.save('train_feature_J0_rest'+'_'+str(i),training_feature)
+np.save('train_feature_J0'+'_'+str(i),training_feature)
 
 
 training_feature = np.reshape(training_feature,(len(training_feature),training_feature[0].shape[0]))
@@ -164,5 +164,5 @@ for i in range(9042):
     test_feature.append(generate_feature(psi,Wf,M,Aj,test_signal_[i]))
 
 test_feature = np.reshape(test_feature,(len(test_feature),test_feature[0].shape[0]))
-np.save('test_feature0',test_feature)
+np.save('test_featureJ0',test_feature)
 
