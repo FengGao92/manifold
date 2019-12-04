@@ -31,7 +31,10 @@ def create_graph(edge_pool):
     return G
 
 for t in range(100):
-    pos,face= read_ply('tr_reg_'+'0'+str(t)+'.ply')
+    if t<10:
+        pos,face= read_ply('tr_reg_'+'00'+str(t)+'.ply')
+    else:
+        pos,face= read_ply('tr_reg_'+'0'+str(t)+'.ply')
 
 
     edge_pool = face_to_edge(face)
