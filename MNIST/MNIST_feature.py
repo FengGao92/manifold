@@ -143,20 +143,18 @@ test_Y_ = [x for i, x in enumerate(test_Y) if i not in test_indices]
 
 
 training_feature = []
-for i in range(50000,54082):
+for i in range(54082):
     if i %100==0:
         print(i)
-    if i % 2000 ==0:
-        np.save('train_feature_J0_rest'+'_'+str(i),training_feature)
     psi,Aj = calculate_wavelet(eigenval,eigenvec,0)
     Wf = weighted_wavelet_transform(psi,M,training_signal_[i])
     training_feature.append(generate_feature(psi,Wf,M,Aj,training_signal_[i]))
+    
+np.save('train_feature_J0_rest'+'_'+str(i),training_feature)
 
 
 training_feature = np.reshape(training_feature,(len(training_feature),training_feature[0].shape[0]))
-np.save('train_feature0',training_feature)
-
-
+np.save('train
 test_feature = []
 for i in range(9042):
     if i %100==0:
