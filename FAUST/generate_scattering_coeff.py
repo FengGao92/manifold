@@ -161,7 +161,7 @@ for i in range(100):
     eigenvec = np.loadtxt('eigenvec'+str(i)+'.txt')
     eigenval[0] = 0
     norm_vec = eigenvec/np.sum(np.multiply(M*eigenvec,eigenvec),0)
-    shot = read_shot('shot/'+'shot'+str(i)+'.txt')
+    shot = read_shot('SHOT/'+'shot'+str(i)+'.txt')
     psi,Aj = calculate_wavelet(eigenval,norm_vec)
     Wf = weighted_wavelet_transform(psi,M,shot)
     feature = generate_feature(psi,Wf,M,Aj,shot)
