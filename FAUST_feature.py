@@ -152,13 +152,16 @@ def read_label(i):
     return i%10
 
 for i in range(100):
-    pos,face= read_ply('../../../faust_file/tr_reg_00'+str(i)+'.ply')
+    if i <10:
+        pos,face= read_ply('faust_file/tr_reg_00'+str(i)+'.ply')
+    else:
+        pos,face= read_ply('faust_file/tr_reg_0'+str(i)+'.ply')
     M = generate_area(pos,face)
     eigenval = np.loadtxt('/mnt/research/cedar_team/geometric_scattering/FAUST/eigenval/'+'eigenval'+str(i)+'.txt')
     eigenvec = np.loadtxt('/mnt/research/cedar_team/geometric_scattering/FAUST/eigenvec/'+'eigenvec'+str(i)+'.txt')
     eigenval[0] = 0
     norm_vec = eigenvec/np.sum(np.multiply(M*eigenvec,eigenvec),0)
-    shot = read_shot('../../shot/'+'shot'+str(i)+'.txt')
+    shot = read_shot('shot/'+'shot'+str(i)+'.txt')
     psi,Aj = calculate_wavelet(eigenval,norm_vec)
     Wf = weighted_wavelet_transform(psi,M,shot)
     feature = generate_feature(psi,Wf,M,Aj,shot)
