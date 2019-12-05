@@ -153,12 +153,12 @@ def read_label(i):
 
 for i in range(100):
     if i <10:
-        pos,face= read_ply('faust_file/tr_reg_00'+str(i)+'.ply')
+        pos,face= read_ply('FAUST_FILE/tr_reg_00'+str(i)+'.ply')
     else:
-        pos,face= read_ply('faust_file/tr_reg_0'+str(i)+'.ply')
+        pos,face= read_ply('FAUST_FILE/tr_reg_0'+str(i)+'.ply')
     M = generate_area(pos,face)
-    eigenval = np.loadtxt('/mnt/research/cedar_team/geometric_scattering/FAUST/eigenval/'+'eigenval'+str(i)+'.txt')
-    eigenvec = np.loadtxt('/mnt/research/cedar_team/geometric_scattering/FAUST/eigenvec/'+'eigenvec'+str(i)+'.txt')
+    eigenval = np.loadtxt('eigenval'+str(i)+'.txt')
+    eigenvec = np.loadtxt('eigenvec'+str(i)+'.txt')
     eigenval[0] = 0
     norm_vec = eigenvec/np.sum(np.multiply(M*eigenvec,eigenvec),0)
     shot = read_shot('shot/'+'shot'+str(i)+'.txt')
