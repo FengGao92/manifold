@@ -265,7 +265,7 @@ for label, data in zip(["train", "test"], [mnist_train, mnist_test]):
         dtype=np.uint8)
 
     while current < n_signals:
-
+        #below select roatted grid or non-rotated grid
         #rotated_grid = grid
         rotated_grid = new_grid
         idxs = np.arange(current, min(n_signals,
