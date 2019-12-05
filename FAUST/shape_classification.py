@@ -5,7 +5,7 @@ from collections import defaultdict
 import scipy.stats.mstats
 from sklearn.svm import SVC
 from collections import Counter
-from FAUST_utility import *
+from utility import *
 
 def read_label_shape(i):
     return i%10
