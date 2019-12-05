@@ -3,7 +3,7 @@ import numpy as np
 import networkx as nx
 from scipy import sparse
 from plyfile import PlyElement
-
+#This is test if it works
 
 def read_ply(path):
     with open(path, 'rb') as f:
