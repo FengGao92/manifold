@@ -130,8 +130,9 @@ def generate_feature(psi,Wf,M,Aj,shot):
 M = generate_area(V,F)
 eigenval = np.loadtxt('eigenval.txt')
 eigenvec = np.loadtxt('eigenvec.txt')
-training_signal = np.load('MNIST_train.npy')
-test_signal = np.load('MNIST_test.npy')
+
+training_signal = np.load('MNIST_train_rotated.npy')
+test_signal = np.load('MNIST_test_rotated.npy')
 training_Y = np.load('MNIST_train_label.npy')
 test_Y = np.load('MNIST_test_label.npy')
 train_indices = [i for i, x in enumerate(training_Y) if x == 6]
