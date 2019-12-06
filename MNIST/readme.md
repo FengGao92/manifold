@@ -1,1 +1,1 @@
-This contains codes for MNIST tasks
+This contains codes for MNIST tasks, for both rotated and unrotated digits.
