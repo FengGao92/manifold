@@ -8,11 +8,9 @@ from collections import Counter
 from utility import *
 
 
+selected_feature = np.load('selected_node0.npy')
 
 training_Y = np.load('MNIST_train_label.npy')
-
-
-
 test_Y = np.load('MNIST_test_label.npy')
 
 
@@ -22,9 +20,9 @@ test_indices = [i for i, x in enumerate(test_Y) if x == 6]
 
 
 
-#training_signal = np.load('/mnt/home/gaofeng2/graph_wavelet/coop_nips/mnist/sphere_feature/j0/combined.npy')
+training_signal = np.load('train_feature0.npy')
 
-#test_signal = np.load('/mnt/home/gaofeng2/graph_wavelet/coop_nips/mnist/sphere_feature/j0/test_feature0.npy')
+test_signal = np.load('test_feature0.npy')
 
 
 training_Y_ = [x for i, x in enumerate(training_Y) if i not in train_indices]
@@ -32,11 +30,11 @@ test_Y_ = [x for i, x in enumerate(test_Y) if i not in test_indices]
 
 
 
-#training_feature = np.reshape(training_signal,(len(training_signal),training_signal[0].shape[0]))
-#training_feature = training_feature[:,selected_feature]
+training_feature = np.reshape(training_signal,(len(training_signal),training_signal[0].shape[0]))
+training_feature = training_feature[:,selected_feature]
 #np.save('train_downsample',training_feature)
-training_feature = np.load('train_downsample.npy')
-training_feature_z = scipy.stats.mstats.zscore(training_feature,0)
+#training_feature = np.load('train_downsample.npy')
+#training_feature_z = scipy.stats.mstats.zscore(training_feature,0)
 
 
 
