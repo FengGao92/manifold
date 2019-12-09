@@ -128,8 +128,8 @@ def generate_feature(psi,Wf,M,Aj,shot):
 
 #calculate area, read in eigenvec and eigenval
 M = generate_area(V,F)
-eigenval = np.loadtxt('eigenval.txt')
-eigenvec = np.loadtxt('eigenvec.txt')
+eigenval = np.loadtxt('EIGEN/eigenval.txt')
+eigenvec = np.loadtxt('EIGEN/eigenvec.txt')
 
 training_signal = np.load('MNIST_train_rotated.npy')
 test_signal = np.load('MNIST_test_rotated.npy')
@@ -142,7 +142,7 @@ test_signal_ = [x for i, x in enumerate(test_signal) if i not in test_indices]
 training_Y_ = [x for i, x in enumerate(training_Y) if i not in train_indices]
 test_Y_ = [x for i, x in enumerate(test_Y) if i not in test_indices]
 
-
+#This code calculates coefficients with J=0.
 training_feature = []
 for i in range(54082):
     if i %100==0:
