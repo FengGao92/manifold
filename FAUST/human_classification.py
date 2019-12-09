@@ -5,6 +5,8 @@ from collections import defaultdict
 import scipy.stats.mstats
 from sklearn.svm import SVC
 from collections import Counter
+from utility import *
+
 
 def read_label_people(i):
     return int(str(i)[0])
