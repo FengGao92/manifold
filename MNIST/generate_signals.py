@@ -321,7 +321,7 @@ np.save('MNIST_train_rotated',d['train_inputs'])
 #np.savetxt('MNIST_train50000.txt',d['train_inputs'][40000:50000])
 #np.savetxt('MNIST_train60000.txt',d['train_inputs'][50000:])
 
-#np.save('MNIST_train_label',d['train_labels'])
+np.save('MNIST_train_label',d['train_labels'])
 
 np.save('MNIST_test_rotated',d['test_inputs'])
-#np.save('MNIST_test_label',d['test_labels'])
+np.save('MNIST_test_label',d['test_labels'])
