@@ -38,7 +38,7 @@ training_feature = training_feature[:,selected_feature]
 np.save('train_downsample',training_feature)
 #once saved these can be used in the future
 #training_feature = np.load('train_downsample.npy')
-#training_feature_z = scipy.stats.mstats.zscore(training_feature,0)
+training_feature_z = scipy.stats.mstats.zscore(training_feature,0)
 
 
 
@@ -46,7 +46,7 @@ test_feature = np.reshape(test_signal,(len(test_signal),test_signal[0].shape[0])
 test_feature = test_feature[:,selected_feature]
 np.save('test_downsample',test_feature)
 #test_feature = np.load('test_downsample.npy')
-#test_feature_z = scipy.stats.mstats.zscore(test_feature,0)
+test_feature_z = scipy.stats.mstats.zscore(test_feature,0)
 print('begin cross validation')
 
 result,prediction_acc = cross_validate(5,training_feature_z,training_Y_,test_feature_z,test_Y_,G_pool,C_pool)
