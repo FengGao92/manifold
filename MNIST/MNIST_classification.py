@@ -29,8 +29,8 @@ training_Y_ = [x for i, x in enumerate(training_Y) if i not in train_indices]
 test_Y_ = [x for i, x in enumerate(test_Y) if i not in test_indices]
 
 #as an example
-G_pool = [0.04]
-C_pool = [650]
+G_pool = [0.001,0.005,0.01,0.02,0.04]
+C_pool = [50,100,250,650]
 
 training_feature = np.reshape(training_signal,(len(training_signal),training_signal[0].shape[0]))
 training_feature = training_feature[:,selected_feature]
