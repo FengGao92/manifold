@@ -42,6 +42,7 @@ set3 = [i+j*10 for j in range(10) for i in [4,5]]
 set4 = [i+j*10 for j in range(10) for i in [6,7]]
 set5 = [i+j*10 for j in range(10) for i in [8,9]]
 
+Y[:10] = [0]*10
 
 Y = np.array(Y)
 
