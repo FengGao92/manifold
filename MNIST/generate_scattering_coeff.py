@@ -155,7 +155,7 @@ for i in range(54082):
 
 
 training_feature = np.reshape(training_feature,(len(training_feature),training_feature[0].shape[0]))
-np.save('train_feature_J0',training_feature)
+np.save('train_featureJ0',training_feature)
 
 test_feature = []
 for i in range(9042):
