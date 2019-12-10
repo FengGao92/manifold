@@ -7,7 +7,7 @@ from scipy import sparse
 from collections import Counter
 from utility import *
 
-
+#read in selected nodes for j = 0 to perform downsampling.
 selected_feature = np.load('selected_node0.npy')
 
 training_Y = np.load('MNIST_train_label.npy')
